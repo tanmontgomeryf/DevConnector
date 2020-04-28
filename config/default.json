@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://montytan2000:montytan2000@cluster0-u0aqg.mongodb.net/test?retryWrites=true&w=majority"
+}
