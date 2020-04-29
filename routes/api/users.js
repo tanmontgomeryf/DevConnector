@@ -22,11 +22,12 @@ router.post(
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
+    //check if validation middleware is satisfied
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
+    //destructure from req.body
     const { name, email, password } = req.body;
 
     try {
@@ -56,7 +57,7 @@ router.post(
         password,
       });
 
-      //encrypt password
+      //encrypt password then update the users password
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 

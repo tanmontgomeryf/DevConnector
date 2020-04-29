@@ -31,11 +31,13 @@ router.post(
     check('password', 'Password is required').exists(),
   ],
   async (req, res) => {
+    //check if validation middleware is satisfied
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
+    //destructure from req.body
     const { email, password } = req.body;
 
     try {
@@ -49,6 +51,7 @@ router.post(
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
 
+      //check if input password is equal to the users password
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
