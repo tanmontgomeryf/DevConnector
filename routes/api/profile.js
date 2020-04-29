@@ -42,7 +42,7 @@ router.get('/user/:user_id', async (req, res) => {
 });
 
 //route: GET api/profile/me
-//desc: get current users profile
+//desc: get the current user's profile
 //access: Private
 router.get('/me', auth, async (req, res) => {
   try {
@@ -149,6 +149,24 @@ router.put(
   }
 );
 
+//route: Delete api/profile
+//desc: delete profiles, user & posts
+//access: private
+router.delete('/user/:user_id', auth, async (req, res) => {
+  try {
+    //remove profile
+    await Profile.findOneAndRemove({ user: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User Removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+module.exports = router;
+
 //old post/put route
 // router.post(
 //   '/',
@@ -196,5 +214,3 @@ router.put(
 //     }
 //   }
 // );
-
-module.exports = router;

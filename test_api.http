@@ -1,5 +1,6 @@
 @myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODE0NjM1MywiZXhwIjoxNTg4NTA2MzUzfQ.W6Xn-Bc3N6kuiqZ8dvH6WfgGSCS7Q7985KEeVShDZEs
 @RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODE1NjEzMiwiZXhwIjoxNTg4NTE2MTMyfQ.fLQBCdjdRKMSdPuOejcyCsaK4bMDm2U_OAFyZsCIJ8E
+@UboyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTYzNzk4ZTY4NzgxMDhjYmZkNWI0In0sImlhdCI6MTU4ODE1OTM1MywiZXhwIjoxNTg4NTE5MzUzfQ.Gwqf9OsdniWoeTGzxYJ278iF0pobD3U1PCzG-hdJlWQ
 @baseURL = http://localhost:5000/api
 @contentType = application/json
 
@@ -7,12 +8,35 @@ GET http://localhost:5000/
 
 ###
 //Users
+//create User
 POST {{baseURL}}/users/
 content-type: {{contentType}}
 
 {
     "name": "Monty",
     "email": "montytan2000@gmail.com",
+    "password": "123456"
+}
+
+###
+//create Ruby User
+POST {{baseURL}}/users/
+content-type: {{contentType}}
+
+{
+    "name": "Ruby",
+    "email": "rubygetsetgo@gmail.com",
+    "password": "123456"
+}
+
+###
+//create Uboy User
+POST {{baseURL}}/users/
+content-type: {{contentType}}
+
+{
+    "name": "Uboy",
+    "email": "uboygotan@gmail.com",
     "password": "123456"
 }
 
@@ -38,6 +62,16 @@ content-type: {{contentType}}
 
 {
     "email": "rubygetsetgo@gmail.com",
+    "password": "123456"
+}
+
+###
+//Login Uboy user
+Post {{baseURL}}/auth/
+content-type: {{contentType}}
+
+{
+    "email": "uboygotan@gmail.com",
     "password": "123456"
 }
 
@@ -94,6 +128,19 @@ x-auth-token: {{RubyToken}}
 }
 
 ###
+//create Uboy profile
+POST {{baseURL}}/profile/
+content-type: {{contentType}}
+x-auth-token: {{UboyToken}}
+
+{
+    "status": "Baby",
+    "skills": "Dance, Sign, Eat Oreo",
+    "location": "Manila, Ph",
+    "bio": "Lemme see!"
+}
+
+###
 //update profile
 PUT {{baseURL}}/profile/
 content-type: {{contentType}}
@@ -129,6 +176,11 @@ x-auth-token: {{RubyToken}}
         "instagram": "https://www.instagram.com/ubaygoes/"
     }
 }
+
+###
+//Delete Uboy profile & user
+DELETE {{baseURL}}/profile/user/5ea963798e6878108cbfd5b4
+x-auth-token: {{UboyToken}}
 
 ###
 //Posts
