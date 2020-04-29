@@ -1,0 +1,58 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODE0NjM1MywiZXhwIjoxNTg4NTA2MzUzfQ.W6Xn-Bc3N6kuiqZ8dvH6WfgGSCS7Q7985KEeVShDZEs
+@baseURL = http://localhost:5000/api
+@contentType = application/json
+
+GET http://localhost:5000/
+
+###
+//Users
+POST {{baseURL}}/users/
+content-type: {{contentType}}
+
+{
+    "name": "Monty",
+    "email": "montytan2000@gmail.com",
+    "password": "123456"
+}
+
+###
+//get auth user
+GET {{baseURL}}/auth/
+x-auth-token: {{token}}
+
+###
+//Login user
+Post {{baseURL}}/auth/
+content-type: {{contentType}}
+
+{
+    "email": "montytan2000@gmail.com",
+    "password": "123456"
+}
+
+###
+//get logged in user profile
+GET {{baseURL}}/profile/me
+x-auth-token: {{token}}
+###
+
+POST {{baseURL}}/profile/
+content-type: {{contentType}}
+x-auth-token: {{token}}
+
+{
+    "status": "Finally Employed",
+    "website": "https://github.com/tanmontgomeryf",
+    "skills": "HTML, CSS, JS",
+    "location": "Manila, Ph",
+    "bio": "Dad of 2!",
+    "githubusername": "tanmontgomeryf",
+    "social": {
+        "facebook": "https://www.facebook.com/montytan2000"
+    }
+}
+
+###
+//Posts
+GET {{baseURL}}/posts/
+
