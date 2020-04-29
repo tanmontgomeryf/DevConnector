@@ -4,10 +4,11 @@
 @baseURL = http://localhost:5000/api
 @contentType = application/json
 
+//root route
 GET http://localhost:5000/
 
 ###
-//Users
+//USER ROUTE
 //create User
 POST {{baseURL}}/users/
 content-type: {{contentType}}
@@ -76,7 +77,7 @@ content-type: {{contentType}}
 }
 
 ###
-
+//PROFILE ROUTE
 //get all profile
 GET {{baseURL}}/profile/
 
@@ -84,12 +85,6 @@ GET {{baseURL}}/profile/
 
 //get all profile
 GET {{baseURL}}/profile/user/5ea928ce342c05047874a052
-
-###
-
-//get logged in user profile
-GET {{baseURL}}/profile/me
-x-auth-token: {{myToken}}
 
 ###
 //create profile
@@ -141,6 +136,13 @@ x-auth-token: {{UboyToken}}
 }
 
 ###
+
+//get logged in user profile
+GET {{baseURL}}/profile/me
+x-auth-token: {{myToken}}
+
+
+###
 //update my profile
 PUT {{baseURL}}/profile/me
 content-type: {{contentType}}
@@ -178,7 +180,12 @@ x-auth-token: {{RubyToken}}
 }
 
 ###
-//update Ruby profile
+//Delete Uboy profile & user
+DELETE {{baseURL}}/profile/me
+x-auth-token: {{UboyToken}}
+
+###
+//Ruby profile create new experience
 PUT {{baseURL}}/profile/experience/new
 content-type: {{contentType}}
 x-auth-token: {{RubyToken}}
@@ -193,9 +200,40 @@ x-auth-token: {{RubyToken}}
 }
 
 ###
-//Delete Uboy profile & user
-DELETE {{baseURL}}/profile/me
-x-auth-token: {{UboyToken}}
+//Monty profile create new experience
+PUT {{baseURL}}/profile/experience/new
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "title": "Marketing Officer",
+    "company": "InvestKo PH",
+    "location": "Ortigas, Ph",
+    "from": "3-12-2019",
+    "to": "12-10-2019",
+    "description": "Creates, plan, and executes marketing plan to further the image, sales of the brand"
+}
+
+###
+//Monty profile update experience
+PUT {{baseURL}}/profile/experience/5ea9a8d01455111c307885b5
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "title": "CEO",
+    "company": "ABL",
+    "location": "Valenzuela City, Ph",
+    "from": "1-20-2019",
+    "to": "3-10-2019",
+    "description": "GOAT"
+}
+
+###
+//Delete Monty experience
+DELETE {{baseURL}}/profile/experience/5ea96d0400496d045410a241
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
 
 ###
 //Posts

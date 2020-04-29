@@ -197,6 +197,73 @@ router.put(
   }
 );
 
+//route: DELETE api/profile/experience/:exp_id
+//desc: Delete experience from profile
+//access: Private
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //get the index of the exprience to be deleted
+    const removeIndex = profile.experience
+      .map((exp) => exp.id)
+      .indexOf(req.params.exp_id);
+
+    profile.experience.splice(removeIndex, 1);
+
+    await profile.save();
+
+    return res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//route: PUT api/profile/experience/:exp_id
+//desc: Edits experience from profile
+//access: Private
+router.put(
+  '/experience/:exp_id',
+  [
+    auth,
+    check('title', 'Title is required').not().isEmpty(),
+    check('company', 'Company is required').not().isEmpty(),
+    check('from', 'From date is required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      // get the index of the exprience to be deleted
+      const removeIndex = profile.experience
+        .map((exp) => exp.id)
+        .indexOf(req.params.exp_id);
+
+      //update the oldExp to the new one while retaining its id
+      const oldExp = profile.experience[removeIndex];
+
+      profile.experience[removeIndex] = {
+        ...oldExp,
+        ...req.body,
+        _id: oldExp._id,
+      };
+
+      await profile.save();
+
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
 
 //old post/put route
