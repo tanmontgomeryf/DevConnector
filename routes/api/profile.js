@@ -41,6 +41,49 @@ router.get('/user/:user_id', async (req, res) => {
   }
 });
 
+//route: POST api/profile
+//desc: create a user profile
+//access: Private
+router.post(
+  '/new',
+  [
+    auth,
+    check('status', 'Status is required').not().isEmpty(),
+    check('skills', 'Skills is required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { skills, social } = req.body;
+
+    //Build profile object
+    const profileFields = {
+      user: req.user.id,
+      ...req.body,
+      skills: skills.split(',').map((skill) => skill.trim()),
+      social,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      if (profile) {
+        return res.status(400).json({ msg: 'Profile already exists' });
+      }
+      //Create new profile then save it to DB
+      profile = new Profile(profileFields);
+      await profile.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 //route: GET api/profile/me
 //desc: get the current user's profile
 //access: Private
@@ -62,54 +105,11 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-//route: POST api/profile
-//desc: create or update a user profile
-//access: Private
-router.post(
-  '/',
-  [
-    auth,
-    check('status', 'Status is required').not().isEmpty(),
-    check('skills', 'Skills is required').not().isEmpty(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { skills, social } = req.body;
-
-    //Build profile object
-    const profileFields = {
-      user: req.user.id,
-      ...req.body,
-      skills: skills.split(',').map((skill) => skill.trim()),
-      social,
-    };
-
-    try {
-      let profile = await Profile.findOne({ user: req.user.id });
-
-      if (profile) {
-        return res.status(400).json({ msg: 'Profile already exists' });
-      }
-      //Create new profile then save it to DB
-      profile = new Profile(profileFields);
-      await profile.save();
-      res.json(profile);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  }
-);
-
 //route: PUT api/profile
 //desc: update a user profile
 //access: Private
 router.put(
-  '/',
+  '/me',
   [
     auth,
     check('status', 'Status is required').not().isEmpty(),
@@ -132,7 +132,7 @@ router.put(
     };
 
     try {
-      let profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({ user: req.user.id });
 
       //update profile
       profile = await Profile.findOneAndUpdate(
@@ -152,7 +152,7 @@ router.put(
 //route: Delete api/profile
 //desc: delete profiles, user & posts
 //access: private
-router.delete('/user/:user_id', auth, async (req, res) => {
+router.delete('/me', auth, async (req, res) => {
   try {
     //remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
@@ -164,6 +164,38 @@ router.delete('/user/:user_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+//route: PUT api/profile/experience
+//desc: update a user profile
+//access: Private
+router.put(
+  '/experience/new',
+  [
+    auth,
+    check('title', 'Title is required').not().isEmpty(),
+    check('company', 'Company is required').not().isEmpty(),
+    check('from', 'From date is required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.experience.unshift({ ...req.body });
+
+      await profile.save();
+
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 module.exports = router;
 

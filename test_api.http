@@ -93,7 +93,7 @@ x-auth-token: {{myToken}}
 
 ###
 //create profile
-POST {{baseURL}}/profile/
+POST {{baseURL}}/profile/new
 content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
@@ -111,7 +111,7 @@ x-auth-token: {{myToken}}
 
 ###
 //create Ruby profile
-POST {{baseURL}}/profile/
+POST {{baseURL}}/profile/new
 content-type: {{contentType}}
 x-auth-token: {{RubyToken}}
 
@@ -129,7 +129,7 @@ x-auth-token: {{RubyToken}}
 
 ###
 //create Uboy profile
-POST {{baseURL}}/profile/
+POST {{baseURL}}/profile/new
 content-type: {{contentType}}
 x-auth-token: {{UboyToken}}
 
@@ -141,8 +141,8 @@ x-auth-token: {{UboyToken}}
 }
 
 ###
-//update profile
-PUT {{baseURL}}/profile/
+//update my profile
+PUT {{baseURL}}/profile/me
 content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
@@ -161,7 +161,7 @@ x-auth-token: {{myToken}}
 
 ###
 //update Ruby profile
-PUT {{baseURL}}/profile/
+PUT {{baseURL}}/profile/me
 content-type: {{contentType}}
 x-auth-token: {{RubyToken}}
 
@@ -178,8 +178,23 @@ x-auth-token: {{RubyToken}}
 }
 
 ###
+//update Ruby profile
+PUT {{baseURL}}/profile/experience/new
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "title": "Visual Display Office",
+    "company": "SM Supermalls",
+    "location": "Valenzuela City, Ph",
+    "from": "2-1-2017",
+    "current": true,
+    "description": "Plans and deploys displays in the mall"
+}
+
+###
 //Delete Uboy profile & user
-DELETE {{baseURL}}/profile/user/5ea963798e6878108cbfd5b4
+DELETE {{baseURL}}/profile/me
 x-auth-token: {{UboyToken}}
 
 ###
