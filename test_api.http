@@ -1,4 +1,5 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODE0NjM1MywiZXhwIjoxNTg4NTA2MzUzfQ.W6Xn-Bc3N6kuiqZ8dvH6WfgGSCS7Q7985KEeVShDZEs
+@myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODE0NjM1MywiZXhwIjoxNTg4NTA2MzUzfQ.W6Xn-Bc3N6kuiqZ8dvH6WfgGSCS7Q7985KEeVShDZEs
+@RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODE1NjEzMiwiZXhwIjoxNTg4NTE2MTMyfQ.fLQBCdjdRKMSdPuOejcyCsaK4bMDm2U_OAFyZsCIJ8E
 @baseURL = http://localhost:5000/api
 @contentType = application/json
 
@@ -18,10 +19,10 @@ content-type: {{contentType}}
 ###
 //get auth user
 GET {{baseURL}}/auth/
-x-auth-token: {{token}}
+x-auth-token: {{myToken}}
 
 ###
-//Login user
+//Login Monty user
 Post {{baseURL}}/auth/
 content-type: {{contentType}}
 
@@ -31,14 +32,36 @@ content-type: {{contentType}}
 }
 
 ###
-//get logged in user profile
-GET {{baseURL}}/profile/me
-x-auth-token: {{token}}
+//Login Ruby user
+Post {{baseURL}}/auth/
+content-type: {{contentType}}
+
+{
+    "email": "rubygetsetgo@gmail.com",
+    "password": "123456"
+}
+
 ###
 
+//get all profile
+GET {{baseURL}}/profile/
+
+###
+
+//get all profile
+GET {{baseURL}}/profile/user/5ea928ce342c05047874a052
+
+###
+
+//get logged in user profile
+GET {{baseURL}}/profile/me
+x-auth-token: {{myToken}}
+
+###
+//create profile
 POST {{baseURL}}/profile/
 content-type: {{contentType}}
-x-auth-token: {{token}}
+x-auth-token: {{myToken}}
 
 {
     "status": "Finally Employed",
@@ -49,6 +72,61 @@ x-auth-token: {{token}}
     "githubusername": "tanmontgomeryf",
     "social": {
         "facebook": "https://www.facebook.com/montytan2000"
+    }
+}
+
+###
+//create Ruby profile
+POST {{baseURL}}/profile/
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "company": "SM Supermalls",
+    "status": "Employed",
+    "skills": "Design, Best Mom,",
+    "location": "Manila, Ph",
+    "bio": "Future Mom of 2!",
+    "social": {
+        "facebook": "https://www.facebook.com/ubaygo",
+        "instagram": "https://www.instagram.com/ubaygoes/"
+    }
+}
+
+###
+//update profile
+PUT {{baseURL}}/profile/
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "status": "Still Unemployed",
+    "website": "https://github.com/tanmontgomeryf",
+    "skills": "HTML, CSS, JS, React",
+    "location": "Manila, Ph",
+    "bio": "Dad of 2!",
+    "githubusername": "tanmontgomeryf",
+    "social": {
+        "facebook": "https://www.facebook.com/montytan2000",
+        "instagram": "https://www.instagram.com/_montytan/"
+    }
+}
+
+###
+//update Ruby profile
+PUT {{baseURL}}/profile/
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "company": "SM Supermalls",
+    "status": "Employed",
+    "skills": "Design, Best Mom,",
+    "location": "Manila, Ph",
+    "bio": "Future Mom of 2!",
+    "social": {
+        "facebook": "https://www.facebook.com/ubaygo",
+        "instagram": "https://www.instagram.com/ubaygoes/"
     }
 }
 
