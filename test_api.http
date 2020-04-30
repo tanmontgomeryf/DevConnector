@@ -287,6 +287,10 @@ content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
 ###
+//Get Github repos
+Get {{baseURL}}/profile/github/bradtraversy
+
+###
 //Posts
 GET {{baseURL}}/posts/
 

@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://montytan2000:montytan2000@cluster0-u0aqg.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mysecrettoken"
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "f27742bb176698a21e0b",
+  "githubSecret": "f8cc6ebc635060fd65825ae3e4060e4cf5e543ad"
 }
