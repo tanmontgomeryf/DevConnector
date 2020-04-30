@@ -88,7 +88,7 @@ GET {{baseURL}}/profile/user/5ea928ce342c05047874a052
 
 ###
 //create profile
-POST {{baseURL}}/profile/new
+POST {{baseURL}}/profile/me/new
 content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
@@ -106,7 +106,7 @@ x-auth-token: {{myToken}}
 
 ###
 //create Ruby profile
-POST {{baseURL}}/profile/new
+POST {{baseURL}}/profile/me/new
 content-type: {{contentType}}
 x-auth-token: {{RubyToken}}
 
@@ -124,7 +124,7 @@ x-auth-token: {{RubyToken}}
 
 ###
 //create Uboy profile
-POST {{baseURL}}/profile/new
+POST {{baseURL}}/profile/me/new
 content-type: {{contentType}}
 x-auth-token: {{UboyToken}}
 
@@ -232,6 +232,57 @@ x-auth-token: {{myToken}}
 ###
 //Delete Monty experience
 DELETE {{baseURL}}/profile/experience/5ea96d0400496d045410a241
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+###
+//create new Monty education
+PUT {{baseURL}}/profile/education/new
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "school": "University of Santo Tomas",
+    "degree": "Bachelors Degree",
+    "fieldofstudy": "Advertising Arts",
+    "from": "6-10-2009",
+    "to": "3-10-2014",
+    "description": "Got a bachelors degree in fine arts major in advertising"
+}
+
+###
+//create new Monty education
+PUT {{baseURL}}/profile/education/new
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "school": "Diliman Preparatory School",
+    "degree": "Elementary and Highschool",
+    "fieldofstudy": "General Studies",
+    "from": "6-10-1999",
+    "to": "3-15-2009",
+    "description": "highschool and elementary"
+}
+
+###
+//update Monty education
+PUT {{baseURL}}/profile/education/5eaaa8666f705913884d964f
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "school": "UST",
+    "degree": "Bachelors Degree",
+    "fieldofstudy": "Fine arts major in advertising",
+    "from": "6-10-2009",
+    "to": "3-10-2014",
+    "description": "Got a bachelors degree in fine arts major in advertising"
+}
+
+###
+//Delete Monty education
+DELETE {{baseURL}}/profile/education/5eaaa7096f705913884d964e
 content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
