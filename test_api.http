@@ -1,5 +1,5 @@
-@myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODE0NjM1MywiZXhwIjoxNTg4NTA2MzUzfQ.W6Xn-Bc3N6kuiqZ8dvH6WfgGSCS7Q7985KEeVShDZEs
-@RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODE1NjEzMiwiZXhwIjoxNTg4NTE2MTMyfQ.fLQBCdjdRKMSdPuOejcyCsaK4bMDm2U_OAFyZsCIJ8E
+@myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODI2MDY0OSwiZXhwIjoxNTg4NjIwNjQ5fQ.ZXMAvfSK7x4Y6L4F5b1fjhBpaBafCrTuIqpHTrezHIA
+@RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODI2MTc5MywiZXhwIjoxNTg4NjIxNzkzfQ.1COZwogRkTStA1Qt3gbGZI_EW8UAZ_drSbzvfFzaJLc
 @UboyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTYzNzk4ZTY4NzgxMDhjYmZkNWI0In0sImlhdCI6MTU4ODE1OTM1MywiZXhwIjoxNTg4NTE5MzUzfQ.Gwqf9OsdniWoeTGzxYJ278iF0pobD3U1PCzG-hdJlWQ
 @baseURL = http://localhost:5000/api
 @contentType = application/json
@@ -140,6 +140,12 @@ x-auth-token: {{UboyToken}}
 //get logged in user profile
 GET {{baseURL}}/profile/me
 x-auth-token: {{myToken}}
+
+###
+
+//get logged in user profile
+GET {{baseURL}}/profile/me
+x-auth-token: {{RubyToken}}
 
 
 ###
@@ -291,6 +297,21 @@ x-auth-token: {{myToken}}
 Get {{baseURL}}/profile/github/bradtraversy
 
 ###
-//Posts
-GET {{baseURL}}/posts/
+//add Posts
+POST {{baseURL}}/posts
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
 
+{
+    "text": "I love uboy!!"
+}
+
+###
+//add Posts
+POST {{baseURL}}/posts
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "text": "I love uboy more!!"
+}
