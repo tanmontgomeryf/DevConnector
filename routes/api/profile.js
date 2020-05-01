@@ -134,10 +134,8 @@ router.put(
     };
 
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
-
       //update profile
-      profile = await Profile.findOneAndUpdate(
+      const profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileFields },
         { new: true }
@@ -241,6 +239,13 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
+
+      if (
+        profile.experience.filter((exp) => exp.id === req.params.exp_id)
+          .length === 0
+      ) {
+        return res.status(404).json({ msg: 'Experience not found' });
+      }
 
       // get the index of the exprience to be deleted
       const removeIndex = profile.experience
