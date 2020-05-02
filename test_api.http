@@ -1,5 +1,5 @@
-@myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODMyMjUwNywiZXhwIjoxNTg4NjgyNTA3fQ.SPdaHIwbhXUh6RAzqWKvWJbDa-BjfqNetvq6h3XW69Q
-@RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODMyMzY1NCwiZXhwIjoxNTg4NjgzNjU0fQ.zutD3xGheu9j3PnfpsVBPXY1pERJ8GZYbcgyRegL-jE
+@myToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTI4Y2UzNDJjMDUwNDc4NzRhMDUyIn0sImlhdCI6MTU4ODQwODQ0OSwiZXhwIjoxNTg4NzY4NDQ5fQ.vvNiT0Lp8RS8wiZICZRrZKoNG0ng7RKCZKZ2NFToHLw
+@RubyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTMwZTFlMzFkMzExMjQ0MTM3OTgzIn0sImlhdCI6MTU4ODQxMDA5MywiZXhwIjoxNTg4NzcwMDkzfQ.3xIwRV0DNbEESPwRNSWOBWQPNGxagt3M8ub8oe8fKMw
 @UboyToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhOTYzNzk4ZTY4NzgxMDhjYmZkNWI0In0sImlhdCI6MTU4ODE1OTM1MywiZXhwIjoxNTg4NTE5MzUzfQ.Gwqf9OsdniWoeTGzxYJ278iF0pobD3U1PCzG-hdJlWQ
 @baseURL = http://localhost:5000/api
 @contentType = application/json
@@ -303,7 +303,7 @@ content-type: {{contentType}}
 x-auth-token: {{myToken}}
 
 {
-    "text": "I love uboy!!"
+    "text": "I love uboy the most!!"
 }
 
 ###
@@ -333,7 +333,7 @@ x-auth-token: {{myToken}}
 
 ###
 //Delete Post by ID
-DELETE {{baseURL}}/posts/5eaaf06cbc1930171c140498
+DELETE {{baseURL}}/posts/5eabfe6e7f78af1710f6bdd9
 x-auth-token: {{myToken}}
 
 ###
@@ -353,10 +353,60 @@ x-auth-token: {{RubyToken}}
 
 ###
 //like Post of Ruby as User: Monty
-PUT {{baseURL}}/posts/5eabfe747f78af1710f6bdda/like
+PUT {{baseURL}}/posts/5eabfe6e7f78af1710f6bdd9/like
 x-auth-token: {{myToken}}
 
 ###
 //like Post of Ruby as User: Monty
 PUT {{baseURL}}/posts/5eabfe747f78af1710f6bdda/unlike
 x-auth-token: {{myToken}}
+
+###
+//add comment to a post
+POST {{baseURL}}/posts/5ead3c60150923082cb24054/comment
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "text": "don't edit"
+}
+
+###
+//add comment to a post
+POST {{baseURL}}/posts/5ead3c60150923082cb24054/comment
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "text": "great post dude"
+}
+
+###
+//delete comment to a post
+DELETE {{baseURL}}/posts/5eabfe6e7f78af1710f6bdd9/comment/5ead36c26365040e0865a3d9
+x-auth-token: {{myToken}}
+
+###
+//delete comment to a post
+DELETE {{baseURL}}/posts/5eabfe6e7f78af1710f6bdd9/comment/5ead37966365040e0865a3dd
+x-auth-token: {{RubyToken}}
+
+###
+//edit a comment
+PUT {{baseURL}}/posts/5ead3c60150923082cb24054/comment/5ead3c7c150923082cb24056
+content-type: {{contentType}}
+x-auth-token: {{RubyToken}}
+
+{
+    "text": "great post bhe"
+}
+
+###
+//edit a comment
+PUT {{baseURL}}/posts/5ead3c60150923082cb24054/comment/5ead3c73150923082cb24055
+content-type: {{contentType}}
+x-auth-token: {{myToken}}
+
+{
+    "text": "joke edit me please!!!!!!$$$"
+}
