@@ -32,18 +32,22 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const { id } = req.user;
+
     try {
-      const user = await User.findById(req.user.id).select('-password');
+      const user = await User.findById(id).select('-password');
+
+      const { name, avatar } = user;
 
       const newPost = new Post({
         text: req.body.text,
-        name: user.name,
-        avatar: user.avatar,
-        user: req.user.id,
+        name,
+        avatar,
+        user: id,
       });
 
-      const post = await newPost.save();
-      res.json(post);
+      await newPost.save();
+      res.json(newPost);
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Server Error');
@@ -111,21 +115,23 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const { params, user, body } = req;
+
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(params.id);
 
       if (!post) {
         return res.status(404).json({ msg: 'Post not found' });
       }
 
-      if (post.user.toString() !== req.user.id) {
+      if (post.user.toString() !== user.id) {
         return res.status(401).json({ msg: 'User not authorized' });
       }
 
       const newPost = await Post.findByIdAndUpdate(
-        req.params.id,
+        params.id,
         {
-          $set: { text: req.body.text },
+          $set: { text: body.text },
         },
         { new: true }
       );
