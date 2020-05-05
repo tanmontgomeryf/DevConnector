@@ -107,7 +107,7 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-//route: PUT api/profile
+//route: PUT api/profile/me
 //desc: update a user profile
 //access: Private
 router.put(
@@ -149,7 +149,7 @@ router.put(
   }
 );
 
-//route: Delete api/profile
+//route: Delete api/profile/me
 //desc: delete profiles, user & posts
 //access: private
 router.delete('/me', auth, async (req, res) => {
