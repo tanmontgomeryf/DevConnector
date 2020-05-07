@@ -57,8 +57,8 @@ export const createProfile = (formData, history) => async (dispatch) => {
   }
 };
 
-//Update profile
-export const updateProfile = (formData, history) => async (dispatch) => {
+//Edit profile
+export const editProfile = (formData, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
