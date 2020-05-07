@@ -12,6 +12,7 @@ const router = express.Router();
 //desc: Test route
 //access: Public
 router.get('/', auth, async (req, res) => {
+  console.log('getting auth token');
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);

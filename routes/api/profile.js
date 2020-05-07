@@ -76,9 +76,9 @@ router.post(
         return res.status(400).json({ msg: 'Profile already exists' });
       }
       //Create new profile then save it to DB
-      profile = new Profile(profileFields);
-      await profile.save();
-      res.json(profile);
+      newProfile = new Profile(profileFields);
+      await newProfile.save();
+      res.json(newProfile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
