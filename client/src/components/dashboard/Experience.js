@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Experience = ({ experience }) => {
   const experiences = experience.map((exp) => (
@@ -17,7 +17,9 @@ const Experience = ({ experience }) => {
         )}
       </td>
       <td>
-        <button className='btn btn-danger'>Edit</button>
+        <Link to={`/experience/${exp._id}`}>
+          <button className='btn btn-danger'>Edit</button>
+        </Link>
         <button className='btn btn-danger'>Delete</button>
       </td>
     </tr>
