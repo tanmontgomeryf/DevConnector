@@ -6,6 +6,7 @@ const config = require('config');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 const router = express.Router();
 
@@ -155,6 +156,7 @@ router.put(
 router.delete('/me', auth, async (req, res) => {
   try {
     //remove profile
+    await Post.deleteMany({ user: req.user.id });
     await Profile.findOneAndRemove({ user: req.user.id });
     await User.findOneAndRemove({ _id: req.user.id });
 
