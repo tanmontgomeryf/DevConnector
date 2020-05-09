@@ -63,7 +63,7 @@ const EditEducation = ({
         toggleDisabled(edu[0].current);
       }
     }
-  }, [loading]);
+  }, [loading, history, getCurrentProfile, education_id, setAlert]);
 
   useEffect(() => {
     getEducationField();

@@ -83,7 +83,7 @@ GET {{baseURL}}/profile/
 
 ###
 
-//get all profile
+//get profile by id
 GET {{baseURL}}/profile/user/5ea928ce342c05047874a052
 
 ###

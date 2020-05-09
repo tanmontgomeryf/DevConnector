@@ -374,7 +374,7 @@ router.put(
   }
 );
 
-//route: PUT api/profile/github/:username
+//route: GET api/profile/github/:username
 //desc: Get user repos from Github
 //access: Public
 

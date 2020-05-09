@@ -55,7 +55,7 @@ const EditExperience = ({
         toggleDisabled(exp[0].current);
       }
     }
-  }, [loading]);
+  }, [loading, experience_id, getCurrentProfile, history, setAlert]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
