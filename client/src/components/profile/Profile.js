@@ -8,13 +8,14 @@ import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileAbout from './ProfileAbout';
 import ProfileGithub from './ProfileGithub';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Profile = ({
   match,
   getProfileById,
   profile: { profile, loading },
   auth,
+  history,
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
@@ -26,9 +27,9 @@ const Profile = ({
         <Spinner />
       ) : (
         <Fragment>
-          <Link to='/profiles' className='btn btn-light'>
-            Back To Profiles
-          </Link>
+          <button onClick={() => history.goBack()} className='btn btn-light'>
+            Go Back
+          </button>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
@@ -86,4 +87,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById })(
+  withRouter(Profile)
+);
