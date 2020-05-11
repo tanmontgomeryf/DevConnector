@@ -1,3 +1,4 @@
 node_modules/
 test_api.http
 config/default.json
+config/production.json
