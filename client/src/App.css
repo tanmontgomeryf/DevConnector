@@ -21,6 +21,14 @@ body {
   color: #333;
 }
 
+.edit-Text {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 15px -2px;
+  width: 100%;
+}
+
 a {
   color: var(--primary-color);
   text-decoration: none;

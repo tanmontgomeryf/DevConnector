@@ -116,7 +116,6 @@ router.put(
     }
 
     const { params, user, body } = req;
-
     try {
       const post = await Post.findById(params.id);
 
